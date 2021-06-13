@@ -7,7 +7,7 @@ const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const passport = require('passport')
 const session = require('express-session')
-
+const MongoStore = require('connect-mongo')
 const connectDB = require('./config/db')
 
 dotenv.config({path: './config/config.env' })
@@ -42,7 +42,9 @@ app.use(passport.session())
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new MongoStore({mongooseConnection: mongoose.connection})
+
   //cookie: { secure: true }
 }))
 
