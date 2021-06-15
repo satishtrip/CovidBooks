@@ -7,7 +7,7 @@ const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const passport = require('passport')
 const session = require('express-session')
-const MongoStore = require('connect-mongo')//(session)
+const MongoStore = require('connect-mongo')
 const connectDB = require('./config/db')
 
 dotenv.config({path: './config/config.env' })
@@ -34,15 +34,12 @@ app.use(express.static(path.join(__dirname)))
 app.engine('.hbs', exphbs({defaultLayout:'main',extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
-//passport middleware
-app.use(passport.initialize())
-app.use(passport.session())
-
 //sessions
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: false,
+  //store: new MongoStore({ mongooseConnection: mongoose.connection }),
   store: MongoStore.create({
     mongoUrl: process.env.MONGO_URI,
   })
@@ -51,6 +48,13 @@ app.use(session({
   //cookie: { secure: true }
 })
 )
+
+//passport middleware
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+
 
 //Routes/Urls
 app.use('/',require('./routes/index'))
