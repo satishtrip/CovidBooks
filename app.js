@@ -59,6 +59,7 @@ app.use(passport.session())
 //Routes/Urls
 app.use('/',require('./routes/index'))
 app.use('/auth',require('./routes/auth'))
+app.use('/helps',require('./routes/helps'))
 
 
   
