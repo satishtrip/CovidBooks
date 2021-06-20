@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { ensureAuth , ensureGuest} = require('../middleware/auth')
-const Helps = require('../models/Helps')
+const Help = require('../models/Help')
 
 
 router.get('/',ensureGuest, (req,res)=>{
@@ -10,10 +10,10 @@ router.get('/',ensureGuest, (req,res)=>{
 
 router.get('/dashboard',ensureAuth,async (req,res)=>{
     try {
-        const helpsPosted = await Helps.find({user:req.user.id}).lean()
+        const helps = await Help.find({user:req.user.id}).lean()
         res.render('dashboard',{
             fname: req.user.firstName,
-            helpsPosted,
+            helps,
         })
 
     }catch (err){

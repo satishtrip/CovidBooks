@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { ensureAuth } = require('../middleware/auth')
 
-const Story = require('../models/Helps')
+const Help = require('../models/Help')
 
 // @desc    Show add page
 // @route   GET /stories/add
@@ -15,11 +15,11 @@ router.get('/add', ensureAuth, (req, res) => {
 router.post('/', ensureAuth, async (req, res) => {
   try {
     req.body.user = req.user.id
-    await Story.create(req.body)
+    await Help.create(req.body)
     res.redirect('/dashboard')
   } catch (err) {
     console.error(err)
-    res.render('error/500')
+    res.render('error/500') 
   }
 })
 

@@ -14,6 +14,11 @@ dotenv.config({path: './config/config.env' })
 connectDB()
 const app = express()
 
+//body parser
+app.use(express.urlencoded({extended:false}))
+app.use(express.json())
+
+
 
 //Passport Auth Config
 require('./config/passport')(passport)

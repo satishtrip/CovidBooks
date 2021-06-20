@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const HelpsSchema = new mongoose.Schema({
+const HelpSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -10,11 +10,7 @@ const HelpsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  links: {
-    type: String,
-    default: 'public',
-    
-  },
+
   status: {
     type: String,
     default: 'public',
@@ -30,4 +26,5 @@ const HelpsSchema = new mongoose.Schema({
   },
 })
 
-module.exports = mongoose.model('Helps', HelpsSchema)
+module.exports = mongoose.model('Help', HelpSchema)
+
