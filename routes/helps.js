@@ -23,6 +23,24 @@ router.post('/', ensureAuth, async (req, res) => {
   }
 })
 
+// @desc    Show all helps posted
+// @route   GET /helps
+router.get('/', ensureAuth, async (req, res) => {
+  try {
+    const helps = await Help.find({ status: 'public' })
+      .populate('user')
+      .sort({ createdAt: 'desc' })
+      .lean()
+
+    res.render('helps/index', {
+      helps,
+    })
+  } catch (err) {
+    console.error(err)
+    res.render('error/500')
+  }
+})
+
 
 
 

@@ -32,11 +32,16 @@ if (process.env.NODE_ENV === 'development') {
 
 //my static folder
 app.use(express.static(path.join(__dirname)))
-
+//handlebars helpers (time issue at UI fix)
+const { formatDate, stripTags,
+  truncate, } = require('./helpers/hbs')
 
 //handlebars
 
-app.engine('.hbs', exphbs({defaultLayout:'main',extname: '.hbs'}));
+app.engine('.hbs', exphbs({helpers: {formatDate, 
+   stripTags,
+  truncate,
+},defaultLayout:'main',extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
 //sessions

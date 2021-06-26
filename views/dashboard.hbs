@@ -16,7 +16,7 @@
         {{#each helps}}
         <tr>
             <td><a href="/helps/{{_id}}">{{title}}</a></td>
-            <td>{{formatDate createdAt "%Y%m%dT%H%M%S%z"}}</td>
+            <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
 
             <td><span class="dash-status">{{status}}</span></td>
             <td>
