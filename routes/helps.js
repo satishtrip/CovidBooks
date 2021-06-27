@@ -41,6 +41,30 @@ router.get('/', ensureAuth, async (req, res) => {
   }
 })
 
+// @desc    Show edit page
+// @route   GET /helps/edit/:id
+router.get('/edit/:id', ensureAuth, async (req, res) => {
+  try {
+    const help = await Help.findOne({
+      _id: req.params.id,
+    }).lean()
+
+    if (!help) {
+      return res.render('errors/404')
+    }
+
+    if (help.user != req.user.id) {
+      res.redirect('/helps')
+    } else {
+      res.render('helps/edit', {
+        help,
+      })
+    }
+  } catch (err) {
+    console.error(err)
+    return res.render('errors/500')
+  }
+})
 
 
 

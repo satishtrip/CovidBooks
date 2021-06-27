@@ -34,12 +34,12 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.static(path.join(__dirname)))
 //handlebars helpers (time issue at UI fix)
 const { formatDate, stripTags,
-  truncate, } = require('./helpers/hbs')
+  truncate,editIcon,select, } = require('./helpers/hbs')
 
 //handlebars
 
 app.engine('.hbs', exphbs({helpers: {formatDate, 
-   stripTags,
+   stripTags,editIcon,select,
   truncate,
 },defaultLayout:'main',extname: '.hbs'}));
 app.set('view engine', '.hbs');
@@ -63,6 +63,12 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+
+//setting global vars
+app.use(function (req, res, next) {
+  res.locals.user = req.user || null
+  next()
+})
 
 
 
